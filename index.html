@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="//unpkg.com/alpinejs" defer> </script>
+</head>
+
+<body>
+	<div class="container" x-data="{showCart: false,
+		smallpizzaTotal : 0,
+		smallpizzaQty : 0,
+		mediumpizzaTotal : 0,
+		mediumpizzaQty : 0,
+		largepizzaTotal : 0,
+		largepizzaQty : 0,
+		BuyNum : false,
+		paymentAmount : 0,
+		paymentMessage : '',
+		Buysmall(){
+			this.smallpizzaTotal += 79.99;
+			this.smallpizzaQty +=1;
+		},
+		Cancelsmall(){
+			if(this.smallpizzaQty>0){
+			this.smallpizzaTotal -= 79.99;
+			this.smallpizzaQty -=1;
+			}
+		},
+		Buymedium(){
+			this.mediumpizzaTotal += 129.99;
+			this.mediumpizzaQty +=1;
+		},
+		Cancelmedium(){
+			if(this.mediumpizzaQty>0){
+			this.mediumpizzaTotal -= 129.99;
+			this.mediumpizzaQty -=1;
+			}
+		},
+		Buylarge(){
+			this.largepizzaTotal += 199.99;
+			this.largepizzaQty +=1;
+		},
+		Cancellarge(){
+			if(this.largepizzaQty>0){
+			this.largepizzaTotal -= 199.99;
+			this.largepizzaQty -=1;
+			}
+		},
+		cartTotal(){
+			return this.smallpizzaTotal + this.mediumpizzaTotal + this.largepizzaTotal
+		},
+		iteamQty(){
+			return this.smallpizzaQty + this.mediumpizzaQty + this.largepizzaQty
+		},
+		makePayment(){
+			if(this.paymentAmount == 0){
+				this.paymentMessage = 'No amount entered!'
+			}
+			if(this.paymentAmount >= this.cartTotal()){
+				this.paymentMessage = 'Payment successeful';
+				  setTimeout(()=>{
+					this.clearMessage()
+					this.BuyNum = false
+				  }, 2000);
+				 }
+			else{
+				this.paymentMessage = 'Error'
+			}
+		},
+		clearMessage(){
+			this.smallpizzaTotal = 0;
+			this.smallpizzaQty = 0;
+			this.mediumpizzaTotal = 0;
+			this.mediumpizzaQty = 0;
+			this.largepizzaTotal = 0;
+			this.largepizzaQty = 0;
+			this.paymentAmount = 0;
+		 }
+	
+	}">
+
+		<div class="header"  >
+			<div class="f3">
+				<h1>Perfect Pizza</h1>
+
+				<img src="327-3271979_half-a-pizza-transparent-background-clipart.png.jpeg" alt="" width="90" >
+				<img src="327-3271979_half-a-pizza-transparent-background-clipart.png.jpeg" alt="" width="90" >
+				<img src="327-3271979_half-a-pizza-transparent-background-clipart.png.jpeg" alt="" width="90" >
+
+				<small>Inspired by <a href="https://www.pizzahut.co.za">pizzahut</a>  </small>
+			</div>
+
+			<div class="f1" >
+				
+					<button x-on:click="showCart=!showCart">
+						<img src="shopping-cart.png" width="30" alt=""></button>
+					<strong x-text="cartTotal()"></strong>
+				
+			
+				<!-- <span>0.00</span> -->
+			</div>
+		</div>
+
+		<div class="cart-box">
+			<div class="cart" x-show="showCart">
+				
+				<div class="">
+					<h2>Cart
+						<img src="shopping-cart.png" width="30" alt="">
+					</h2>
+				</div>
+				
+				<table>
+					<tr>
+						<td>Small pizza</td>
+						<td>
+							<span x-text="smallpizzaQty"></span>
+							<button x-on:click="smallpizzaTotal += 79.99,smallpizzaQty +=1">+</button>
+							<button x-on:click="smallpizzaTotal -= 79.99,smallpizzaQty -=1">-</button>
+						</td>
+						<td>R<span x-text="smallpizzaTotal"></span></td>
+					</tr>
+					<tr>
+						<td>Medium pizza</td>
+						<td>
+							<span x-text="mediumpizzaQty"></span>
+							<button x-on:click="mediumpizzaTotal += 129.99,mediumpizzaQty +=1">+</button>
+							<button x-on:click="mediumpizzaTotal -= 129.99,mediumpizzaQty -=1">-</button>
+						</td>
+						<td>R<span x-text="mediumpizzaTotal"></span></td>
+					</tr>
+					<tr>
+						<td>Large pizza</td>
+						<td>
+							<span x-text="largepizzaQty"></span>
+							<button x-on:click="largepizzaTotal += 199.99,largepizzaQty +=1">+</button>
+							<button x-on:click="largepizzaTotal -= 199.99,largepizzaQty -=1">-</button>
+						</td>
+						<td>R<span x-text="largepizzaTotal"></span></td>
+					</tr>
+					<tr>
+						<td colspan="2">Total</td>
+						<td>R<span x-text="cartTotal()"></span></td>
+					</tr>
+					<tr>
+						<td colspan="2">
+
+							<div class="message" x-text="paymentMessage" ></div>
+							<div>
+								<label for="">Payment amount</label>
+								<input class="input" type="number" placeholder="Payment amount" x-model="paymentAmount" >
+							</div>
+							<button class="btn" x-show="!BuyNum" x-on:click="makePayment()">
+								<img src="shopping-cart.png" width="20" alt="">
+								Checkout</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+		</div>
+
+		<div class="cupcakes">
+			<div class="cupcake">
+				<img src="327-3271979_half-a-pizza-transparent-background-clipart.png.jpeg" alt="" width="80">
+				<h3>Small Pizza</h3>
+				<h4>R79.99</h4>
+				<button class="buy btn"x-on:click="smallpizzaTotal += 79.99,smallpizzaQty +=1" >
+					<img src="327-3271979_half-a-pizza-transparent-background-clipart.png.jpeg" alt="" width="20" >
+				Buy</button>
+
+				<div>
+					Small pizza with 3 toppings 1 meat topping. 3 or less other toppings.
+
+				</div>
+
+			</div>
+
+			<div class="cupcake">
+				<img src="327-3271979_half-a-pizza-transparent-background-clipart.png.jpeg" alt="" width="150">
+				<h3>Medium Pizza</h3>
+				<h4>R129.99</h4>
+				<button class="buy btn"x-on:click="mediumpizzaTotal += 129.99,mediumpizzaQty +=1" >
+					<img src="327-3271979_half-a-pizza-transparent-background-clipart.png.jpeg" alt="" width="20" >
+				Buy</button>
+
+				<div>
+					Medium margeritha pizza with 3 toppings max. 2 or less meat topping. 3 or less other toppings
+				</div>
+				
+			</div>
+
+			<div class="cupcake">
+				<img src="327-3271979_half-a-pizza-transparent-background-clipart.png.jpeg" alt="" width="250">
+				<h3>Large Pizza</h3>
+				<h4>R199.99</h4>
+				<button class="buy btn"x-on:click="largepizzaTotal += 199.99,largepizzaQty +=1" >
+					<img src="327-3271979_half-a-pizza-transparent-background-clipart.png.jpeg" alt="" width="20" >
+				Buy</button>
+				<div>
+					Large margeritha pizza with 3 toppings max. 3 meat toppings max. 3 or less other toppings.
+
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

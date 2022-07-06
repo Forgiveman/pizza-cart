@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "../basic-website"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "../uj-layout-workshop/pizza-pamphlet"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "pizza-cart"
+	}
+}

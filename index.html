@@ -99,7 +99,7 @@
 				
 					<button x-on:click="showCart=!showCart">
 						<img src="shopping-cart.png" width="30" alt=""></button>
-					<strong x-text="cartTotal()"></strong>
+					R<strong x-text="cartTotal().toFixed(2)"></strong>
 				
 			
 				<!-- <span>0.00</span> -->
@@ -116,36 +116,36 @@
 				</div>
 				
 				<table>
-					<tr>
+					<tr x-show="smallpizzaQty > 0">
 						<td>Small pizza</td>
 						<td>
 							<span x-text="smallpizzaQty"></span>
-							<button x-on:click="smallpizzaTotal += 79.99,smallpizzaQty +=1">+</button>
-							<button x-on:click="smallpizzaTotal -= 79.99,smallpizzaQty -=1">-</button>
+							<button x-show="smallpizzaQty > 0" x-on:click="smallpizzaTotal += 79.99,smallpizzaQty +=1">+</button>
+							<button x-show="smallpizzaQty > 0" x-on:click="smallpizzaTotal -= 79.99,smallpizzaQty -=1">-</button>
 						</td>
-						<td>R<span x-text="smallpizzaTotal"></span></td>
+						<td>R<span x-text="smallpizzaTotal.toFixed(2)"></span></td>
 					</tr>
-					<tr>
+					<tr x-show="mediumpizzaQty > 0">
 						<td>Medium pizza</td>
 						<td>
 							<span x-text="mediumpizzaQty"></span>
-							<button x-on:click="mediumpizzaTotal += 129.99,mediumpizzaQty +=1">+</button>
-							<button x-on:click="mediumpizzaTotal -= 129.99,mediumpizzaQty -=1">-</button>
+							<button x-show="mediumpizzaQty > 0" x-on:click="mediumpizzaTotal += 129.99,mediumpizzaQty +=1">+</button>
+							<button x-show="mediumpizzaQty > 0" x-on:click="mediumpizzaTotal -= 129.99,mediumpizzaQty -=1">-</button>
 						</td>
-						<td>R<span x-text="mediumpizzaTotal"></span></td>
+						<td>R<span x-text="mediumpizzaTotal.toFixed(2)"></span></td>
 					</tr>
-					<tr>
+					<tr x-show="largepizzaQty > 0">
 						<td>Large pizza</td>
 						<td>
 							<span x-text="largepizzaQty"></span>
-							<button x-on:click="largepizzaTotal += 199.99,largepizzaQty +=1">+</button>
-							<button x-on:click="largepizzaTotal -= 199.99,largepizzaQty -=1">-</button>
+							<button x-show="largepizzaQty > 0" x-on:click="largepizzaTotal += 199.99,largepizzaQty +=1">+</button>
+							<button x-show="largepizzaQty > 0" x-on:click="largepizzaTotal -= 199.99,largepizzaQty -=1">-</button>
 						</td>
-						<td>R<span x-text="largepizzaTotal"></span></td>
+						<td>R<span x-text="largepizzaTotal.toFixed(2)"></span></td>
 					</tr>
-					<tr>
+					<tr x-show="cartTotal() > 0">
 						<td colspan="2">Total</td>
-						<td>R<span x-text="cartTotal()"></span></td>
+						<td>R<span x-text="cartTotal().toFixed(2)"></span></td>
 					</tr>
 					<tr>
 						<td colspan="2">
@@ -157,7 +157,7 @@
 							</div>
 							<button class="btn" x-show="!BuyNum" x-on:click="makePayment()">
 								<img src="shopping-cart.png" width="20" alt="">
-								Checkout</button>
+								Pay</button>
 						</td>
 					</tr>
 				</table>
